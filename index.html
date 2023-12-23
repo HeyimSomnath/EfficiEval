@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="./images/efficievalfav.jpg">
+    <title>EfficiEval</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.1/codemirror.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.1/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.1/mode/clike/clike.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.63.1/addon/edit/matchbrackets.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/java-parser@2.2.0/src/index.min.js"></script>
+
+    <script src="test.js"></script>
+</head>
+
+<body>
+    <img src="./images/efficievallogo.png" style="width: 250px; margin: 0%;">
+
+    <div class="container">
+        <div class="code-section">
+            <p><strong>CODE:</strong></p>
+            <textarea id="code" rows="10" placeholder="Paste or write Java code here"></textarea>
+        </div>
+
+        <div class="button-container">
+            <button onclick="calculateComplexity()">Submit</button>
+            <button class="reset-button" onclick="resetForm()">Reset</button>
+        </div>
+
+        <div class="result">
+            <label for="time"><b>Time Complexity:</b></label>
+            <textarea id="time" rows="1" readonly></textarea>
+
+            <label for="space"><b>Space Complexity:</b></label>
+            <textarea id="space" rows="1" readonly></textarea>
+        </div>
+    </div>
+
+    <p class="footer">© EfficiEval by <a href="www.linkedin.com/in/heysomnath">Somnath</a></p>
+
+    <script>
+        // Initialize CodeMirror on the textarea
+        const codeTextArea = document.getElementById("code");
+        const codeMirrorEditor = CodeMirror.fromTextArea(codeTextArea, {
+            lineNumbers: true,
+            mode: "text/x-java",
+            autofocus: true,
+            autoCloseBrackets: true,
+            matchBrackets: true,
+            theme: "default",
+            width: "100%",
+        });
+        // Function to get the time complexity and display it
+        function calculateTimeComplexity() {
+            const codeTextArea = document.getElementById("code");
+            const timeTextArea = document.getElementById("time");
+
+            const javaCode = codeTextArea.value;
+            const timeComplexity = analyzeTimeComplexity(javaCode);
+
+            timeTextArea.value = timeComplexity;
+        }
+
+        function resetForm() {
+            codeMirrorEditor.setValue(''); // Reset code textarea
+            document.getElementById("time").value = ''; // Clear time complexity textarea
+            document.getElementById("space").value = ''; // Clear space complexity textarea
+        }
+    </script>
+
+
+</body>
+
+</html>
